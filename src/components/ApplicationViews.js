@@ -2,7 +2,7 @@ import React from "react"
 import { Route } from "react-router-dom"
 import { CampsitesList } from "./campsites/campsites"
 import { CreateCampsite } from "./createCampsite/createCampsite"
-import { Reviews } from "./reviews/reviews"
+import { Reviews, ReviewsList } from "./reviews/reviews"
 
 export const ApplicationViews = () => {
     return <>
@@ -11,6 +11,9 @@ export const ApplicationViews = () => {
         </Route>
         <Route path="/createCampsite">
             <CreateCampsite />
+        </Route>
+        <Route path="/reviews">
+            <ReviewsList />
         </Route>
         
 
