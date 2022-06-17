@@ -1,25 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+
 
 export const CampsitesList = () => {
     const [camps, setCamps] = useState([])
-    const [userCamps, setUserCamps] = useState([])
 
 
-const fetchCamps = async () => {
-    const apiCall = await fetch("http://localhost:8088/campsites"); 
-    const data = await apiCall.json();
-    setCamps(data)
+
+    const fetchCamps = () => {
+        return fetch("http://localhost:8000/campsites", {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+            }
+        })
+            .then(response => response.json())
     }
 
+
+    useEffect(() => {
+        fetchCamps()
+            .then((camps) => {
+                setCamps(camps)
+            })
+    },
+        [])
+
+    return (
+
+        <div>
+            <h2>Campsites</h2>
+            {
+                camps.map(
+                    (campsiteObject) => {
+                        return <>
+                            <p key={campsiteObject.id}>{campsiteObject.name}
+                            </p>
+                        </>
+
+                    }
+                )
+            }
+
+
+        </div>
+    )
 }
-
-const history = useHistory()
-
-useEffect(
-    async () => {
-    await fetchCamps();
-        },
-        []
-        
-        )

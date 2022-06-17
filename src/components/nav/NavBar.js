@@ -6,7 +6,9 @@ export const NavBar = () => {
   const history = useHistory()
   return (
     <nav>
-      <Link to="/">Home</Link>
+      <Link to="/">All Campsites</Link>
+      <Link to="/createCampsite">Create a Campsite</Link>
+      <Link to="/reviews">Reviews</Link>
       {
         localStorage.getItem("auth_token") !== null ?
           <button onClick={() => {
