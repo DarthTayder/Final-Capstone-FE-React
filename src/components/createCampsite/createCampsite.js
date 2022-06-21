@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 export const CreateCampsite = () => {
     const [campName, setCampName] = useState('')
     const [campLocation, setCampLocation] = useState('')
+    const [poi, setPoi] = useState('')
+    const [city, setCity] = useState('')
     
 
 
@@ -21,6 +23,19 @@ export const CreateCampsite = () => {
     
     };
 
+    const handlePoiChange = event => {
+    
+        setPoi(event.target.value)
+    
+    };
+
+    const handleCityChange = event => {
+    
+        setCity(event.target.value)
+    
+    };
+
+
     const submitCamp = (evt) => {
         evt.preventDefault()
 
@@ -28,19 +43,21 @@ export const CreateCampsite = () => {
     const NewCamp = {
         name: campName,
         address: campLocation,
-        
-        userId: parseInt(localStorage.getItem("user")),
+        poi: poi,
+        city: city,
+        userId: (localStorage.getItem("user"))
         }
 
         const fetchOption = {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("auth_token")}`
             },
             body: JSON.stringify(NewCamp)
         }
 
-        return fetch("http://localhost:8088/campsites", fetchOption)
+        return fetch(`http://localhost:8000/campsites`, fetchOption)
         .then(response => response.json())
         .then(() => {
             history.push("/")
@@ -60,7 +77,7 @@ export const CreateCampsite = () => {
                         onChange={handleNameChange}
 
                         value={campName}
-                      
+
                         required autoFocus
                         type="text"
                         className="form-control"
@@ -78,7 +95,27 @@ export const CreateCampsite = () => {
                         className="form-control"
                         placeholder="Location" />
                 </div>
-                
+                <div className="form-group">
+                    <label>Points of Interest:</label>
+                    <input
+                        onChange={handlePoiChange}
+
+                        value={poi}
+
+                        required 
+                        type="text"
+                        className="form-control"
+                        placeholder="Points of Interest" />
+                </div>
+                <div className="form-group">
+                    <label>City:</label>
+                    <select onChange={handleCityChange}value={city}>
+                        <option defaultValue="">Select A City</option>
+                        <option value="Nashville">Nashville</option> 
+                        <option value="Knoxville">Knoxville</option>
+                        
+                    </select>
+                </div>
             
 
 

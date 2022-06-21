@@ -5,7 +5,7 @@ import "./NavBar.css"
 export const NavBar = () => {
   const history = useHistory()
   return (
-    <nav>
+    <nav className="NavBar">
       <Link to="/">All Campsites</Link>
       <Link to="/createCampsite">Create a Campsite</Link>
       <Link to="/reviews">Reviews</Link>

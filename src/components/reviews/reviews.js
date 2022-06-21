@@ -8,9 +8,9 @@ export const ReviewsList = () => {
 
 
     const fetchReviews = () => {
-        return fetch("http://localhost:8000/reviews", {
+        return fetch(`http://localhost:8000/reviews`, {
             headers: {
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("auth_token")}`
             }
         })
             .then(response => response.json())
@@ -35,7 +35,8 @@ export const ReviewsList = () => {
                     review.map(
                         (reviewObject) => {
                             return <>
-                                <p key={reviewObject.id}>{reviewObject.content}
+                                <p key={reviewObject.id}>{reviewObject.campsite.name} - {reviewObject.content} {reviewObject.user.name}
+                                
                                 </p>
                             </>
     

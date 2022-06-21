@@ -1,40 +1,67 @@
 import React, { useEffect, useState } from "react";
+import "./campsites.css"
+
+import { Campsite } from "./editCampsite";
+
+export const fetchCamps = () => {
+    return fetch("http://localhost:8000/campsites", {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+    .then(response => response.json())
+}
+
+export const deleteCamps = (id) => {
+    
+    fetch(`http://localhost:8000/campsites/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+    
+    
+}
+
 
 
 export const CampsitesList = () => {
     const [camps, setCamps] = useState([])
+    
+    useEffect(
+        () => {
+            fetchCamps()
+                .then(setCamps)
+        },
+        []
+    )
 
 
+    
 
-    const fetchCamps = () => {
-        return fetch("http://localhost:8000/campsites", {
-            headers: {
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
-            }
-        })
-            .then(response => response.json())
-    }
+        
+    
 
 
-    useEffect(() => {
-        fetchCamps()
-            .then((camps) => {
-                setCamps(camps)
-            })
-    },
-        [])
+    
+
+        
+        
+
+
 
     return (
-
-        <div>
+            
+        <div className="campsites">
             <h2>Campsites</h2>
+            
+            
             {
                 camps.map(
                     (campsiteObject) => {
-                        return <>
-                            <p key={campsiteObject.id}>{campsiteObject.name}
-                            </p>
-                        </>
+                        return <Campsite campsiteObject={campsiteObject} setCamps={setCamps}/>
+                        
 
                     }
                 )
