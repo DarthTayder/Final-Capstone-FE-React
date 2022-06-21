@@ -8,7 +8,7 @@ export const NavBar = () => {
     <nav className="NavBar">
       <Link to="/">All Campsites</Link>
       <Link to="/createCampsite">Create a Campsite</Link>
-      <Link to="/reviews">Reviews</Link>
+      <Link to="/userCampList">Saved Lists</Link>
       {
         localStorage.getItem("auth_token") !== null ?
           <button onClick={() => {

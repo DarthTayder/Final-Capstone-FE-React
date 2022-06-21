@@ -1,47 +1,37 @@
 import React, { useEffect, useState } from "react";
 
-export const MyCamps = () => {
+export const UserCampList = () => {
     const [userCamps, setUserCamps] = useState([])
-    
-    const getState = () => {
-        return fetch("http://localhost:8000/campsites", {
+
+    const fetchUserList = () => {
+        fetch(`http://localhost:8000/user_list`,{
             headers: {
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("auth_token")}`
             }
         })
-            .then(response => response.json())
+        .then(response => response.json())
+    
     }
 
-        
-
-
     useEffect(() => {
-        getState()
+        
+        fetchUserList()
+        .then( data => setUserCamps(data))
+        
+        
     },
     []
     )
 
-    const deleteCamps = (id) => {
-        fetch(`http://localhost:8088//${id}`,{
-            method: "DELETE"
-        })
-            .then((data) => {
-                getState(data)
-            })
-    }
-
-        
-    
-
     return (
         
         <>
-        <h2>My Trails</h2>
+        <h2>Saved Camps</h2>
         {
-            userTrails.map(
-                (myTrailsObject) => {
-                    return <><p key={`myTrail--${myTrailsObject.id}`}>{myTrailsObject.trailName}</p>
-                    <button key={myTrailsObject.id} onClick={() => { deleteTrails(myTrailsObject.id); } }> Delete </button></>
+            userCamps.map(
+                (campsObject) => {
+                    return <><p key={`savedList--${campsObject.id}`}>{campsObject.campsite.name}</p>
+                    <button> Delete </button></>
                 }
                 )
             }
