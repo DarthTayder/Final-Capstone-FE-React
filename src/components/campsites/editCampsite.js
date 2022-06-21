@@ -75,7 +75,7 @@ import { deleteCamps } from "./campsites";
                     <input
                         onChange={handleNameChange}
                         
-                        value={campsiteObject.name}
+                        value={campName}
 
                         required autoFocus
                         type="text"
