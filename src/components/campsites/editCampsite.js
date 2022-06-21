@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { CampsitesList, fetchCamps } from "./campsites";
 import { deleteCamps } from "./campsites";
 
@@ -12,6 +13,7 @@ import { deleteCamps } from "./campsites";
         const [poi, setPoi] = useState(campsiteObject.poi)
         const [city, setCity] = useState(campsiteObject.city)
         
+        const history = useHistory()
     
     
         
@@ -39,6 +41,33 @@ import { deleteCamps } from "./campsites";
             setCity(event.target.value)
         
         };
+        const handleFavoriteButton = (campsite) => {
+            
+            setCampName(campsite)
+            const name = campsite.name;
+        
+        const userCamp = {
+        name: campName,
+        address: campLocation,
+        poi: poi,
+        city: city,
+        userId: (localStorage.getItem("user"))
+        }
+        
+        const fetchOption = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("auth_token")}`
+            },
+            body: JSON.stringify(userCamp)
+        }
+        
+        return fetch("http://localhost:8088/user_list", fetchOption)
+        .then(response => response.json())
+        .then(() => {history.push("/userCampList")}
+        )
+    }
     
     const submitCamp = (id) => {
     
@@ -138,6 +167,10 @@ import { deleteCamps } from "./campsites";
                     setEditCamps(true)
                 }
             }>Edit</button>
+
+            <button key={`fav--${campsiteObject.id}`} onClick={() => {handleFavoriteButton (campsiteObject.id)
+            .then (fetchCamps)
+            .then (setCamps); } }>Favorite</button>
     
         </>
 
