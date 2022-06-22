@@ -10,15 +10,19 @@ export const UserCampList = () => {
             }
         })
         .then(response => response.json())
+        .then((data) => {
+            setUserCamps(data)
+        })
     
     }
 
     useEffect(() => {
         
         fetchUserList()
-        .then( data => setUserCamps(data))
         
         
+    
+    
     },
     []
     )
@@ -30,7 +34,7 @@ export const UserCampList = () => {
         {
             userCamps.map(
                 (campsObject) => {
-                    return <><p key={`savedList--${campsObject.id}`}>{campsObject.campsite.name}</p>
+                    return <><p key={`savedList--${campsObject.id}`}>{campsObject.name}</p>
                     <button> Delete </button></>
                 }
                 )

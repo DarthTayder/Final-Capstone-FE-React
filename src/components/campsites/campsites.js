@@ -20,6 +20,7 @@ export const deleteCamps = (id) => {
             "Authorization": `Token ${localStorage.getItem("auth_token")}`
         }
     })
+    
     fetchCamps()
     
 }
