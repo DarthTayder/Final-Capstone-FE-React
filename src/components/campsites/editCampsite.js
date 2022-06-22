@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { CampsitesList, fetchCamps } from "./campsites";
@@ -12,11 +12,34 @@ import { deleteCamps } from "./campsites";
         const [campLocation, setCampLocation] = useState(campsiteObject.address)
         const [poi, setPoi] = useState(campsiteObject.poi)
         const [city, setCity] = useState(campsiteObject.city)
+        const [user, setUser] = useState({})
         
         const history = useHistory()
     
+        const fetchUser = () => {
+
+            fetch(`http://localhost:8000/user`,{
+                headers: {
+                    "Authorization": `Token ${localStorage.getItem("auth_token")}`
+                }
+            })
+            .then(response => response.json())
+            .then (setUser)
+            
+            
+        }
     
+        useEffect(() => {
         
+            fetchUser()
+            
+            
+            
+        
+        
+        },
+        []
+        )
     
         const handleNameChange = event => {
     
@@ -165,10 +188,12 @@ import { deleteCamps } from "./campsites";
             <button key={`camp--${campsiteObject.id}`}  onClick={() => {handleDelete (campsiteObject.id)
                 } }>Delete</button>
             
-            <button onClick ={ () =>{ 
+            {user.id===campsiteObject.user?
+                <button onClick ={ () =>{ 
                     setEditCamps(true)
                 }
             }>Edit</button>
+            :''}
 
             <button key={`fav--${campsiteObject.id}`} onClick={() => {handleFavoriteButton (campsiteObject)
             .then (fetchCamps)
