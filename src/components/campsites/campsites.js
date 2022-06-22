@@ -21,8 +21,8 @@ export const deleteCamps = (id) => {
         }
     })
     
-    fetchCamps()
-    
+    // fetchCamps()
+    .then (() => fetchCamps())
 }
 
 
