@@ -4,6 +4,7 @@ import "./campsites.css"
 import { Campsite } from "./editCampsite";
 
 export const fetchCamps = () => {
+    
     return fetch("http://localhost:8000/campsites", {
         headers: {
             "Authorization": `Token ${localStorage.getItem("auth_token")}`
@@ -14,15 +15,15 @@ export const fetchCamps = () => {
 
 export const deleteCamps = (id) => {
     
-    fetch(`http://localhost:8000/campsites/${id}`, {
+    return fetch(`http://localhost:8000/campsites/${id}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("auth_token")}`
         }
     })
     
-    // fetchCamps()
-    .then (() => fetchCamps())
+    
+    
 }
 
 
@@ -40,19 +41,6 @@ export const CampsitesList = () => {
     )
 
 
-    
-
-        
-    
-
-
-    
-
-        
-        
-
-
-
     return (
             
         <div className="campsites">
@@ -60,7 +48,7 @@ export const CampsitesList = () => {
             
             
             {
-                camps.map(
+                camps?.map(
                     (campsiteObject) => {
                         return <Campsite campsiteObject={campsiteObject} setCamps={setCamps}/>
                         

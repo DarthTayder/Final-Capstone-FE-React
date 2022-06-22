@@ -41,6 +41,15 @@ import { deleteCamps } from "./campsites";
             setCity(event.target.value)
         
         };
+
+        const handleDelete = (id) => {
+            deleteCamps(id)
+            .then(() => fetchCamps())
+            .then(setCamps)
+
+        }
+
+
         const handleFavoriteButton = (campsite) => {
             
             
@@ -153,9 +162,8 @@ import { deleteCamps } from "./campsites";
             <p> {campsiteObject.address}</p>
             </>
 }
-            <button key={`camp--${campsiteObject.id}`}  onClick={() => {deleteCamps (campsiteObject.id)
-                .then (fetchCamps)
-                .then (setCamps); } }>Delete</button>
+            <button key={`camp--${campsiteObject.id}`}  onClick={() => {handleDelete (campsiteObject.id)
+                } }>Delete</button>
             
             <button onClick ={ () =>{ 
                     setEditCamps(true)
