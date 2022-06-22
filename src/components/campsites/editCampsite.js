@@ -46,13 +46,13 @@ import { deleteCamps } from "./campsites";
             setCampName(campsite)
             const name = campsite.name;
         
-        const userCamp = {
-        name: campName,
-        address: campLocation,
-        poi: poi,
-        city: city,
-        userId: (localStorage.getItem("user"))
-        }
+            const userCamp = {
+            name: campName,
+            address: campLocation,
+            poi: poi,
+            city: city,
+            userId: (localStorage.getItem("user"))
+            }
         
         const fetchOption = {
             method: "POST",
