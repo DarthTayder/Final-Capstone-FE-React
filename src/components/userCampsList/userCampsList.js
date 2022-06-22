@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from "react";
 
+
+export const deleteCamps = (id) => {
+    
+    fetch(`http://localhost:8000/user_list/${''}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+    
+    
+    
+}
+
+
 export const UserCampList = () => {
     const [userCamps, setUserCamps] = useState([])
     const [campsites, setCampsites] = useState([])
     const fetchUserList = () => {
-        fetch(`http://localhost:8000/user_list`,{
+        fetch(`http://localhost:8000/user_list/currentUser`,{
             headers: {
                 "Authorization": `Token ${localStorage.getItem("auth_token")}`
             }
@@ -15,6 +30,8 @@ export const UserCampList = () => {
         })
     
     }
+
+    
 
     const fetchCamps = () => {
         fetch(`http://localhost:8000/campsites`, {
@@ -59,7 +76,7 @@ export const UserCampList = () => {
             userCamps.map(
                 (campsObject) => {
                     return <><p key={`savedList--${campsObject.id}`}>{campsMap(campsObject.campsiteId)?.name}</p>
-                    <button> Delete </button></>
+                    <button onClick={deleteCamps}> Delete </button></>
                 }
                 )
             }

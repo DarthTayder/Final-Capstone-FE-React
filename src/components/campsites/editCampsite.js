@@ -43,16 +43,10 @@ import { deleteCamps } from "./campsites";
         };
         const handleFavoriteButton = (campsite) => {
             
-            setCampName(campsite)
-            const name = campsite.name;
+            
+            
         
-            const userCamp = {
-            name: campName,
-            address: campLocation,
-            poi: poi,
-            city: city,
-            userId: (localStorage.getItem("user"))
-            }
+        
         
         const fetchOption = {
             method: "POST",
@@ -60,10 +54,10 @@ import { deleteCamps } from "./campsites";
                 "Content-Type": "application/json",
                 "Authorization": `Token ${localStorage.getItem("auth_token")}`
             },
-            body: JSON.stringify(userCamp)
+        
         }
         
-        return fetch("http://localhost:8088/user_list", fetchOption)
+        return fetch(`http://localhost:8000/campsites/${campsite.id}/addToList`, fetchOption)
         .then(response => response.json())
         .then(() => {history.push("/userCampList")}
         )
@@ -168,7 +162,7 @@ import { deleteCamps } from "./campsites";
                 }
             }>Edit</button>
 
-            <button key={`fav--${campsiteObject.id}`} onClick={() => {handleFavoriteButton (campsiteObject.id)
+            <button key={`fav--${campsiteObject.id}`} onClick={() => {handleFavoriteButton (campsiteObject)
             .then (fetchCamps)
             .then (setCamps); } }>Favorite</button>
     
